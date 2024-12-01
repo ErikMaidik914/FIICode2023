@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+    <title>FIICode2023 Challenge</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <a href="/home"><img src="../static/logo.png"></a>
+        </nav>
+        <div class="hero">
+            <div class="form-patient">
+                <div class="login-text">
+                    <h2>Edit information sheet</h2>
+                </div>
+                <form id="login" class="patient-group" action="" method="post">
+                    <input type="text" class="patient-field" placeholder="Weight" name="weight" value="{{request.form.weight}}">
+                    <input type="text" class="patient-field" placeholder="Height" name="height" value="{{request.form.height }}">
+                    <input type="text" class="patient-field" placeholder="Shoe size" name="shoe_size" value="{{request.form.shoe_size}}">
+                     <input type="text" class="patient-field" placeholder="Blood Type" name="blood_type" value="{{request.form.blood_type}}">
+                    <input type="text" class="patient-field" placeholder="Medications" name="medications" value="{{request.form.medications}}">
+                    <input type="text" class="patient-field" placeholder="Hospitalization" name="hospitalization" value="{{request.form.hospitalization}}">
+                    <input id="smoking" type="checkbox" class="checkbox-patient" name="smoking"><label for="smoking" class="checkbox-text">Smoking</label>
+                    <input id="drinking" type="checkbox" class="checkbox-patient" name="drinking"><label for="drinking" class="checkbox-text">Drinking</label><br><br>
+                    <input type="submit" class="register-btn" value="Next step">
+                </form>
+                    {% if error %}
+                    <p class="error"><strong>Error:</strong> {{ error }}
+                      {% endif %}</p>
+                <a href="{{ url_for('patient',patient_id=patient_id) }}" class="back-btn">Cancel</a>
+
+            </div>
+        </div>
+    </section>
+     <script>
+      window.onunload = function() {
+        window.location.reload(true);
+      };
+    </script>
+    <script>
+      window.addEventListener('beforeunload', function (event) {
+        // Send an AJAX request to the server to clear the session
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/clear-session', false);
+        xhr.send(null);
+      });
+    </script>
+</body>
+</html>

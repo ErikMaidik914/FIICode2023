@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+    <title>FIICode2023 Challenge</title>
+    <link rel="stylesheet" href="../static/main-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+</head>
+<body>
+    <section class="header">
+            <!-- The navigation menu -->
+            <div class="navbar">
+                <a href="/patient-home">Calendar</a>
+                <a href="/patient-profile">Profile</a>
+                <a href="/change-medic">Change doctor</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+            <div class="main-box">
+                <div>
+                    <h1 class="name">Doctors nearby</h1>
+                     {% if patient.given_rating!=None %}
+                        <h2>Current Doctor: {{current_doctor.first_name}} {{current_doctor.last_name}};  Rating: {{ current_doctor.average_rating }}; Your rating: {{patient.given_rating}}</h2>
+                    {% else %}
+                         <h2>Current Doctor: {{current_doctor.first_name}} {{current_doctor.last_name}};  Rating: {{ current_doctor.average_rating }}; Your rating: No rating given yet</h2>
+                    {% endif %}
+                    <hr>
+                    <form id="rating-form"  action="" method="post">
+                      <label for="rating">Change your rating:</label>
+                      <input type="number" id="rating" name="rating" value="{{request.form.rating}}" min="1" max="5">
+                      <input class="change-btn" type="submit" value="Submit">
+                    </form>
+                    <div id="table"></div>
+                </div>
+            </div>
+
+    </section>
+
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <script>
+                      new gridjs.Grid({
+                        columns: [
+                          { id: 'fname', name: 'First name' },
+                          { id: 'lname', name: 'Last name' },
+                          { id: 'number_patients', name: 'Number of Patients', sort: false },
+                          { id: 'address', name: 'Address', sort: false },
+                          { id: 'rating', name: 'Rating', sort: true},
+                          { id: 'transfer', name: 'Transfer', sort: false,
+                                attributes: (cell,row) => {
+                                // add these attributes to the td elements only
+                                if (cell) {
+                                    return {
+                                        'onclick': () => {
+                                            if (confirm("Are you sure you want to transfer?")) {
+                                                const xhr = new XMLHttpRequest();
+                                                xhr.open("POST", `/create-transfer/${row.cells[5].data}`);
+                                                xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                                                xhr.send(JSON.stringify({ confirmed: true }));
+                                                xhr.onload = function() {
+                                                    if (xhr.status === 200) {
+                                                        location.reload();
+                                                        alert("Transfer request has been submitted!!");
+                                                    }else if (xhr.status === 400) {
+                                                            alert("An error occurred while processing your request: " + xhr.responseText);
+                                                }}
+                                                xhr.onerror = function() {
+                                                      alert("An error occurred while processing your request.");
+                                                    };
+                                            }
+                                        },
+                                        'style': 'cursor: pointer',
+                                    };
+                                }
+                            }
+                          }
+                        ],
+                        data: [
+                          {% for doctor in doctors %}
+                            {
+                              fname: '{{ doctor.first_name }}',
+                              lname: '{{ doctor.last_name }}',
+                              number_patients: '{{ doctor.number_of_patients }}',
+                              address: '{{ doctor.address }}',
+                              rating: '{{ doctor.average_rating }}',
+                              transfer: '{{ doctor.id }}'
+                            },
+                          {% endfor %}
+                        ],
+                        search: {
+                          selector: (cell, rowIndex, cellIndex) => [0, 1, 5].includes(cellIndex) ? cell : null,
+                        },
+                        sort: true,
+                        pagination: true,
+                      }).render(document.getElementById('table'));
+    </script>
+    <script>
+      window.addEventListener('beforeunload', function (event) {
+        // Send an AJAX request to the server to clear the session
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/clear-session', false);
+        xhr.send(null);
+      });
+    </script>
+</body>
+
+</html>

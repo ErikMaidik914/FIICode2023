@@ -1,0 +1,341 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+.header{
+    min-height: 100vh;
+    max-width: 100%;
+    background-color:#6b667a;
+    background-position: center;
+    overflow: auto;
+}
+
+nav{
+    display: flex;
+    padding: 4% 8%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav img{
+    width: clamp(150px, 150px ,15%);
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    align-self: top;
+}
+
+.text-box{
+    width: 90%;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+.text-box h1{
+    font-size: clamp(1rem, 3vh + 1rem, 4rem);
+}
+
+.text-box h1:hover{
+    color: #9A00FA;
+    transition: 0.5s;
+    border: transparent;
+}
+
+.text-box p{
+    margin: 10px 0 40px;
+    font-size: clamp(1rem, .5vh + 1rem, 4rem);
+    color: #fff;
+}
+
+.text-box p:hover{
+    color: #9A00FA;
+    transition: 0.5s;
+    border: transparent;
+}
+
+.hero-btn{
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    box-shadow: 2px;
+    padding: 12px 34px;
+    font-size: 19px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+}
+.hero-btn:hover{
+    color: #000;
+    border: 1px solid #9A00FA;
+    background: #9A00FA;
+    transition: 1s;
+    box-shadow: 0 0 5px 3px #000;
+}
+
+
+/*----login and registration----*/
+
+.hero{
+    min-height: 100%;
+    max-width: 100%;
+    margin-top: 2rem;
+}
+.form-box{
+    max-width: 380px;
+    min-height: 480px;
+    position: relative;
+    margin: 6% auto;
+    background: #fff;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.form-patient{
+    max-width: 850px;
+    min-height: 580px;
+    position: relative;
+    margin: 3% auto;
+    background: #fff;
+    padding: 5px;
+    overflow: hidden;
+}
+
+
+.button-box{
+    max-width: 220px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 20px 9px #9A00FA;
+    border-radius: 30px;
+}
+
+.toggle-btn{
+    padding: 10px 30px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+    font-size: 15px;
+}
+
+.input-group{
+    top: 110px;
+    position: absolute;
+    width: 280px;
+    transition: .5s;
+}
+
+.patient-group{
+    top: 100px;
+    position: absolute;
+    width: 800px;
+    transition: .5s;
+}
+
+.input-field{
+    width: 100%;
+    padding: 15px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #9A00FA;
+    outline: none;
+    background: transparent;
+}
+
+.patient-field{
+    width: 30%;
+    padding: 15px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #9A00FA;
+    outline: none;
+    background: transparent;
+    display: inline-block;
+    text-align: center;
+}
+
+.login-btn{
+    width: 85%;
+    padding: 20px 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    background: linear-gradient(to right, #CB0BE3, #9A00FA);
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    font-size: 18px
+}
+
+.register-btn{
+    width: 40%;
+    padding: 20px 30px;
+    cursor: pointer;
+    display: block;
+    margin: 10px 220px auto;
+    background: linear-gradient(to right, #CB0BE3, #9A00FA);
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    font-size: 18px;
+}
+
+.check-box{
+    margin: 15px 10px 30px 0;
+}
+
+.login-text{
+    width: 100%;
+    color: #000;
+    top: 40px;
+    position: absolute;
+    text-align: center;
+}
+
+.save{
+    color: #777;
+    font-size: 12px;
+    bottom: 129px;
+    position: absolute;
+}
+
+.register-in-login{
+    color: #777;
+    font-size: 12px;
+    padding: 10px 0;
+    margin: 15px 0;
+    cursor: pointer;
+    position: absolute;
+    bottom: 75px;
+    left: 50px;
+}
+
+#login{
+    left: 50px;
+}
+
+.back-to-login{
+    color: #777;
+    font-size: 12px;
+    padding: 10px 0;
+    margin: 15px 0;
+    cursor: pointer;
+    position: absolute;
+    bottom: 40px;
+    left: 50px;
+}
+
+.error{
+    width: 100%;
+    top: 80px;
+    position: absolute;
+    text-align: center;
+    color: #FF0000;
+}
+
+.medic{
+    width: 60%;
+    padding: 20px 30px;
+    cursor: pointer;
+    display: block;
+    margin: 150px auto 0px auto;
+    background: linear-gradient(to right, #CB0BE3, #9A00FA);
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    font-size: 20px;
+    text-align: center;
+    outline: none;
+    text-decoration: none;
+    color: #000;
+}
+
+.pacient{
+    width: 60%;
+    padding: 20px 30px;
+    cursor: pointer;
+    display: block;
+    margin: 50px auto;
+    background: linear-gradient(to right, #CB0BE3, #9A00FA);
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    font-size: 20px;
+    text-align: center;
+    outline: none;
+    text-decoration: none;
+    color: #000;
+}
+
+.back-btn{
+    color: #777;
+    font-size: 12px;
+    padding: 10px 0;
+    margin: 10px 0;
+    cursor: pointer;
+    position: absolute;
+    bottom: 20px;
+    left: 50px;
+}
+
+nav p{
+    width: 100%;
+    text-align: left;
+    position: relative;
+    font-size: 30px;
+    cursor: pointer;
+    color: #000
+}
+
+.main-box{
+    width: 1280px;
+    height: 680px;
+    position: relative;
+    margin: 6% auto;
+    background: #fff;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.diseases{
+    float: left;
+    min-width: 200px;
+    white-space: nowrap;
+    max-inline-size: 5em;
+
+}
+
+.checkbox-patient{
+    margin: 10px;
+    padding: 5px;
+    max-inline-size: 5em;
+}
+
+.checkbox-text{
+    display: inline;
+    padding 10px;
+    max-inline-size: 2rem;
+    width: 5em;
+}
+
+.type-text{
+    padding: 10px;
+}
+
+.check-text{
+    position: absolute;
+    margin: 70px auto auto 50px;
+}

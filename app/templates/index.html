@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+    <title>FIICode2023 Challenge</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <nav>
+            <a href="/home"><img src="../static/logo.png"></a>
+        </nav>
+        <div class="text-box">
+            <h1>MedEase</h1>
+            <p>Making healthcare accessible to all</p>
+            <a href="/login" class="hero-btn">Login</a>
+        </div>
+    </div>
+    <script>
+      window.onunload = function() {
+        window.location.reload(true);
+      };
+    </script>
+    <script>
+      window.addEventListener('beforeunload', function (event) {
+        // Send an AJAX request to the server to clear the session
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/clear-session', false);
+        xhr.send(null);
+      });
+    </script>
+</body>
+</html>

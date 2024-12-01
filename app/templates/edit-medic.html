@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+    <title>FIICode2023 Challenge</title>
+    <link rel="stylesheet" href="../static/main-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="header">
+            <!-- The navigation menu -->
+            <div class="navbar">
+                <a href="/medic-home">Calendar</a>
+                <a href="/medic-profile">Profile</a>
+                <div class="dropdown">
+                    <button class="dropbtn">Patients
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="/patient-list">Patient list</a>
+                        <a href="/invite-patient">Invite a patient</a>
+                        <a href="/transfer-patients">Transfer patients</a>
+                    </div>
+                </div>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        <div class="form-patient">
+            <div class="form-patient">
+                <div class="login-text">
+                    <h2>Edit profile</h2>
+                </div>
+                <form id="login" class="patient-group" action="" method="post" enctype="multipart/form-data" >
+                    <input type="text" class="patient-field" placeholder="Username" name="username" value="{{request.form.username }}">
+                    <input type="text" class="patient-field" placeholder="First name" name="first_name" value="{{request.form.first_name}}">
+                    <input type="text" class="patient-field" placeholder="Last name" name="last_name" value="{{request.form.last_name}}">
+                    <input type="tel" class="patient-field" placeholder="Phone number" name="phone_number" value="{{request.form.phone_number}}">
+                    <input type="text" class="patient-field" placeholder="Email" name="email" value="{{request.form.email }}">
+                    <input type="text" class="patient-field" placeholder="Address" name="address" value="{{request.form.address}}">
+                    <input type="text" class="patient-field" placeholder="Zipcode" name="zipcode" value="{{request.form.zipcode}}">
+                    <input type="text" class="patient-field" placeholder="City" name="city" value="{{request.form.city}}">
+                    <input type="text" class="patient-field" placeholder="County" name="county" value="{{request.form.county}}">
+                    <input type="text" class="patient-field" placeholder="Date of birth (dd/mm/yyyy)" name="birth_date" value="{{request.form.birth_date}}">
+                    <input type="text" class="patient-field" placeholder="Gender (Male/Female)" name="gender" value="{{request.form.gender}}">
+                    <input type="text" class="patient-field" placeholder="Consultation schedule office" name="consultation_schedule_office" value="{{request.form.consultation_schedule_office}}">
+                    <input type="text" class="patient-field" placeholder="Consultation schedule away" name="consultation_schedule_away" value="{{request.form.consultation_schedule_away}}">
+                    <input type="text" class="patient-field" placeholder="Assistants schedule" name="assistants_schedule" value="{{request.form.assistants_schedule}}">
+                    <input type="password" class="patient-field" placeholder="Password" name="password" value="{{request.form.password}}">
+                    <input type="file" class="patient-field" placeholder="Profile picture" name="profile_picture" value="{{request.files.profile_picture}}"><br><br>
+                    <input type="submit" class="register-btn" value="Save changes">
+
+                </form>
+                    {% if error %}
+                    <p class="error"><strong>Error:</strong> {{ error }}
+                      {% endif %}</p>
+                <a href="/medic-profile" class="back-btn">Back</a>
+            </div>
+        </div>
+    </section>
+     <script>
+      window.onunload = function() {
+        window.location.reload(true);
+      };
+    </script>
+    <script>
+      window.addEventListener('beforeunload', function (event) {
+        // Send an AJAX request to the server to clear the session
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/clear-session', false);
+        xhr.send(null);
+      });
+    </script>
+</body>
+</html>

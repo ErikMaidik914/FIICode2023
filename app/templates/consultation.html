@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+    <title>FIICode2023 Challenge</title>
+    <link rel="stylesheet" href="../static/main-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+    <section class="header">
+        <!-- The navigation menu -->
+        <div class="navbar">
+            <a href="/medic-home">Calendar</a>
+            <a href="/medic-profile">Profile</a>
+            <div class="dropdown">
+                <button class="dropbtn">Patients
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/patient-list">Patient list</a>
+                    <a href="/invite-patient">Invite a patient</a>
+                    <a href="/transfer-patients">Transfer patients</a>
+                </div>
+            </div>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+        <div class="main-box">
+            <div>
+                <h1 class="name">Consultation PDF</h1>
+                <hr>
+                <p>
+                    {% if consultation_pdf!=None %}
+                    <a href="{{ url_for('uploaded_consultation', filename=consultation_pdf) }}">View current consultation PDF</a>
+                    {% endif %}
+                </p>
+                <form method="POST" action="" enctype="multipart/form-data">
+                    <label for="pdf">Upload a new PDF for the consultation:</label>
+                    <input type="file" id="pdf" name="pdf">
+                    <input type="submit" value="Upload">
+                </form>
+            </div>
+            {% if error %}
+            <p class="error"><strong>Error:</strong> {{ error }}</p>
+            {% endif %}
+            <button class="back-btn" onclick="window.history.back()">Go Back</button>
+        </div>
+    </section>
+</body>
+<script>
+    document.getElementById("confirm-btn").addEventListener("click", function(){
+  window.location.reload();
+});</script>
+   <script>
+      window.onunload = function() {
+        window.location.reload(true);
+      };
+    </script>
+    <script>
+      window.addEventListener('beforeunload', function (event) {
+        // Send an AJAX request to the server to clear the session
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/clear-session', false);
+        xhr.send(null);
+      });
+    </script>
+
+</html>

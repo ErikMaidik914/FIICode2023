@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+    <title>FIICode2023 Challenge</title>
+    <link rel="stylesheet" href="../static/main-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <section class="header">
+            <!-- The navigation menu -->
+            <div class="navbar">
+                <a href="/medic-home">Calendar</a>
+                <a href="/medic-profile">Profile</a>
+                <div class="dropdown">
+                    <button class="dropbtn">Patients
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="/patient-list">Patient list</a>
+                        <a href="/invite-patient">Invite a patient</a>
+                        <a href="/transfer-patients">Transfer patients</a>
+                    </div>
+                </div>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+            <div class="main-box">
+                {% if doctor.profile_picture==None %}
+                    <img src="{{ doctor.avatar(128) }}" class="profile-img" alt="{{ doctor.username }}">
+                {% else %}
+                    <img src="../static/files/profile_picture_doctor/{{doctor.profile_picture}}" class="profile-img" alt="{{ doctor.username }}">
+                {% endif %}
+                  <h1 class="name">{{doctor.first_name}} {{doctor.last_name}}</h1>
+                  <div class="profile-box">
+                    <table class="medic-table">
+                        <tr>
+                            <th>Username:</th>
+                            <td>{{doctor.username}}</td>
+                        </tr>
+                        <tr>
+                            <th>Last name:</th>
+                            <td>{{doctor.last_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>First name:</th>
+                            <td>{{doctor.first_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone number:</th>
+                            <td>{{doctor.phone_number}}</td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>{{doctor.email}}</td>
+                        </tr>
+                        <tr>
+                            <th>Address:</th>
+                            <td>{{doctor.address}}</td>
+                        </tr>
+                        <tr>
+                            <th>Postalcode:</th>
+                            <td>{{doctor.postalcode}}</td>
+                        </tr>
+                        <tr>
+                            <th>City:</th>
+                            <td>{{doctor.city}}</td>
+                        </tr>
+                        <tr>
+                            <th>County:</th>
+                            <td>{{doctor.state}}</td>
+                        </tr>
+                        <tr>
+                            <th>Date of birth:</th>
+                            <td>{{doctor.birth_date}}</td>
+                        </tr>
+                        <tr>
+                            <th>Gender:</th>
+                            <td>{{doctor.gender}}</td>
+                        </tr>
+                        <tr>
+                            <th>Consultation schedule office:</th>
+                            <td>{{doctor.consultation_schedule_office}}</td>
+                        </tr>
+                        <tr>
+                            <th>Consultation schedule away:</th>
+                            <td>{{doctor.consultation_schedule_away}}</td>
+                        </tr>
+                        <tr>
+                            <th>Assistants schedule:</th>
+                            <td>{{doctor.assistants_schedule}}</td>
+                        </tr>
+                        <tr>
+                            <th>Medical proof:</th>
+                            <td>{{doctor.medical_proof}}</td>
+                        </tr>
+                        <tr>
+                            <th>Number of patients:</th>
+                            <td>{{doctor.number_of_patients}}</td>
+                        </tr>
+                        <tr>
+                            <th>Password:</th>
+                            <td>********</td>
+                        </tr>
+                    </table>
+                  </div>
+                  <p><a href="/edit-medic" class="contact-btn">Edit profile</a></p>
+            </div>
+
+    </section>
+     <script>
+      window.onunload = function() {
+        window.location.reload(true);
+      };
+    </script>
+    <script>
+      window.addEventListener('beforeunload', function (event) {
+        // Send an AJAX request to the server to clear the session
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/clear-session', false);
+        xhr.send(null);
+      });
+    </script>
+</body>
+
+</html>

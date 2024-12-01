@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+    <title>FIICode2023 Challenge</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <a href="/home"><img src="../static/logo.png"></a>
+        </nav>
+        <div class="hero">
+            <div class="form-box">
+                <div class="login-text">
+                    <h2>Login</h2>
+                </div>
+                <form id="login" class="input-group" action="" method="post">
+                    <input type="text" class="input-field" placeholder="Username" name="username" value="{{request.form.username }}">
+                    <input type="password" class="input-field" placeholder="Password" name="password" value="{{request.form.password}}"><br><br><br><br>
+                    <input type="submit" class="login-btn" value="Login"><br><br>
+                </form>
+                    {% if error %}
+                    <p class="error"><strong>Error:</strong> {{ error }}
+                      {% endif %}</p>
+                <a href="/choice" class="register-in-login">Don't have an account?</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+      window.onunload = function() {
+        window.location.reload(true);
+      };
+    </script>
+    <script>
+      window.addEventListener('beforeunload', function (event) {
+        // Send an AJAX request to the server to clear the session
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/clear-session', false);
+        xhr.send(null);
+      });
+    </script>
+</body>
+</html>

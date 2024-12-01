@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+    <title>FIICode2023 Challenge</title>
+    <link rel="stylesheet" href="../static/main-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <section class="header">
+            <!-- The navigation menu -->
+             <div class="navbar">
+                <a href="/medic-home">Calendar</a>
+                <a href="/medic-profile">Profile</a>
+                <div class="dropdown">
+                    <button class="dropbtn">Patients
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="/patient-list">Patient list</a>
+                        <a href="/invite-patient">Invite a patient</a>
+                        <a href="/transfer-patients">Transfer patients</a>
+                    </div>
+                </div>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+            <div class="main-box">
+                {% if patient.profile_picture==None %}
+                    <img src="{{ patient.avatar(128) }}" class="profile-img" alt="{{ patient.username }}">
+                {% else %}
+                    <img src="../static/files/profile_picture_patient/{{patient.profile_picture}}" class="profile-img" alt="{{ patient.username }}">
+                {% endif %}
+                  <h1 class="name">{{patient.first_name}} {{patient.last_name}}'s Information sheet</h1>
+                  <div class="profile-box">
+                    <table class="medic-table">
+                        <tr>
+                            <th>Weight:</th>
+                            <td>{{ information_sheet.weight }} kg</td>
+                        </tr>
+                        <tr>
+                            <th>Height:</th>
+                            <td>{{ information_sheet.height }} cm</td>
+                        </tr>
+                        <tr>
+                            <th>Show size:</th>
+                            <td>{{ information_sheet.shoe_size }}</td>
+                        </tr>
+                        <tr>
+                            <th>Blood type:</th>
+                            <td>{{ information_sheet.blood_type }}</td>
+                        </tr>
+                        <tr>
+                            <th>Medications:</th>
+                            <td>{{ information_sheet.medications }}</td>
+                        </tr>
+                        <tr>
+                            <th>Chronic diseases:</th>
+                            <td>{{ information_sheet.medical_history }}</td>
+                        </tr>
+                        <tr>
+                            <th>Allergies:</th>
+                            <td>{{ information_sheet.allergies }}</td>
+                        </tr>
+                        <tr>
+                            <th>Hospitalization:</th>
+                            <td>{{ information_sheet.hospitalization }}</td>
+                        </tr>
+                        <tr>
+                            <th>Smoking:</th>
+                            <td>{{ information_sheet.get_smoking }}</td>
+                        </tr>
+                        <tr>
+                            <th>Drinking:</th>
+                            <td>{{ information_sheet.get_drinking }}</td>
+                        </tr>
+                        <tr>
+                            <th>Consultation history:</th>
+                            <td><a href="{{ url_for('patient_consultation_history', patient_id=patient.id)}}">Click to open</a></td>
+                        </tr>
+                    </table>
+                  </div>
+
+                  <p>
+
+                 <button class="back-in-btn" onclick="window.history.back()">Go Back</button>
+
+                   <a href="{{ url_for('edit_information_sheet_1', patient_id=patient.id) }}" class="contact-btn">Edit</a></p>
+            </div>
+
+    </section>
+     <script>
+      window.onunload = function() {
+        window.location.reload(true);
+      };
+    </script>
+    <script>
+      window.addEventListener('beforeunload', function (event) {
+        // Send an AJAX request to the server to clear the session
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/clear-session', false);
+        xhr.send(null);
+      });
+    </script>
+</body>
+
+</html>

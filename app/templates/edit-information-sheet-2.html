@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="with=device-width, initial-scale=1.0">
+    <title>FIICode2023 Challenge</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <a href="/home"><img src="../static/logo.png"></a>
+        </nav>
+        <div class="hero">
+            <div class="form-patient">
+                <div class="login-text">
+                    <h2>Sign up Step 3: Medical record</h2>
+                </div>
+                <p class="check-text">Please check those that apply (diseases):</p>
+                <form id="login" class="patient-group" action="" method="post">
+                    {% for disease in diseases %}
+                    <div class="diseases">
+                        <input id="{{ disease['name'] }}" type="checkbox" class="checkbox-patient" name="{{ disease['name'] }}"><label for="{{ disease['name'] }}" class="checkbox-text">{{ disease['name'] }}</label>
+                    </div>
+                    {% endfor %}
+                <input type="submit" class="register-btn" value="Next step">
+                </form>
+                    {% if error %}
+                    <p class="error"><strong>Error:</strong> {{ error }}
+                      {% endif %}</p>
+                <a href="{{ url_for('patient',patient_id=patient_id) }}" class="back-btn">Cancel</a>
+            </div>
+        </div>
+    </section>
+     <script>
+      window.onunload = function() {
+        window.location.reload(true);
+      };
+    </script>
+    <script>
+      window.addEventListener('beforeunload', function (event) {
+        // Send an AJAX request to the server to clear the session
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/clear-session', false);
+        xhr.send(null);
+      });
+    </script>
+</body>
+</html>
